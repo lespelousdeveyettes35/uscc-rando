@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "nom": "Prénom Nom",
+      "poste": "Président(e)",
+      "email": "president@uscc.fr",
+      "telephone": "06 00 00 00 00"
+    },
+    {
+      "nom": "Prénom Nom",
+      "poste": "Secrétaire",
+      "email": "secretaire@uscc.fr"
+    },
+    {
+      "nom": "Prénom Nom",
+      "poste": "Trésorier(e)",
+      "telephone": "06 00 00 00 01"
+    },
+    {
+      "nom": "Prénom Nom",
+      "poste": "Animateur Marche Nordique"
+    },
+    {
+      "nom": "Prénom Nom",
+      "poste": "Animateur Randonnée"
+    }
+  ]
+}

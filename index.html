@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>USCC Randonnée – Les Pelous de Veyettes</title>
+  <meta name="description" content="Section randonnée de l'USCC : bureau, infos pratiques, calendrier des activités."/>
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="logo" href="#">🥾 USCC Randonnée</a>
+      <nav class="navlinks">
+        <a href="#bureau">Bureau</a>
+        <a href="#pratiques">Infos pratiques</a>
+        <a href="#vie">Vie du club</a>
+        <a class="btn" href="/admin/">Administration</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <h1>Les Pelous de Veyettes</h1>
+    <p class="lead">Marche pédestre, marche nordique, Audax & Bungy Pump – sorties conviviales toute l’année.</p>
+    <div class="tiles">
+      <a class="tile" href="#bureau"><h3>👥 Bureau</h3><p>Membres, postes & contacts</p></a>
+      <a class="tile" href="#pratiques"><h3>🧭 Infos pratiques</h3><p>Lieu/horaires, niveaux, équipement</p></a>
+      <a class="tile" href="#vie"><h3>📅 Vie du club</h3><p>Calendrier Google partagé</p></a>
+      <a class="tile" href="/admin/"><h3>🔐 Administration</h3><p>Éditer le contenu</p></a>
+    </div>
+  </section>
+
+  <section id="bureau" class="section container">
+    <h2>👥 Bureau & encadrants</h2>
+    <div id="members" class="cards" aria-live="polite"></div>
+  </section>
+
+  <section id="pratiques" class="section section--alt">
+    <div class="container">
+      <h2>🧭 Informations pratiques</h2>
+      <article id="pratiques-content" class="prose" aria-live="polite">
+        <p>Chargement…</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="vie" class="section container">
+    <h2>📅 Calendrier des activités</h2>
+
+    <div class="agenda-controls" role="group" aria-label="Affichage de l’agenda">
+      <button class="btn" data-view="MONTH">Mois</button>
+      <button class="btn" data-view="WEEK">Semaine</button>
+      <button class="btn" data-view="AGENDA">Planning</button>
+      <a id="ical-link" class="btn" target="_blank" rel="noopener" style="display:none">S’abonner (iCal)</a>
+    </div>
+
+    <div class="gcal-wrap">
+      <iframe
+        id="gcal"
+        title="Agenda USCC Randonnée"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://calendar.google.com/calendar/embed?src=lespelousdeveyettes35%40gmail.com&ctz=Europe%2FParis&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0"
+        style="border:0">
+      </iframe>
+    </div>
+
+    <p class="muted">Conseil : ajoutez l’agenda à votre Google/Apple/Outlook via le lien iCal si fourni par le club.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <strong>USCC Randonnée</strong><br/>
+        © <span id="annee"></span> – Tous droits réservés
+      </div>
+      <nav>
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

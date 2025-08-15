@@ -1,0 +1,36 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: "/"
+locale: "fr"
+
+collections:
+  - name: "members"
+    label: "Bureau / Encadrants"
+    files:
+      - label: "Liste des membres"
+        name: "members"
+        file: "data/members.json"
+        fields:
+          - label: "Membres"
+            name: "items"
+            widget: list
+            fields:
+              - {label: Nom, name: nom, widget: string}
+              - {label: Poste, name: poste, widget: string}
+              - {label: Email, name: email, widget: string, required: false}
+              - {label: Téléphone, name: telephone, widget: string, required: false}
+  - name: "pratiques"
+    label: "Infos pratiques"
+    files:
+      - label: "Page Infos pratiques"
+        name: "pratiques"
+        file: "data/pratiques.md"
+        fields:
+          - {label: Contenu, name: body, widget: markdown}
+
+publish_mode: editorial_workflow

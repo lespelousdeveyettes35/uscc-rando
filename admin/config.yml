@@ -4,33 +4,69 @@ backend:
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
-
-site_url: "/"
 locale: "fr"
 
 collections:
+  # 1) Membres (JSON avec un tableau "items")
   - name: "members"
-    label: "Bureau / Encadrants"
+    label: "👥 Membres du bureau"
     files:
       - label: "Liste des membres"
         name: "members"
         file: "data/members.json"
+        format: json
         fields:
           - label: "Membres"
             name: "items"
             widget: list
             fields:
-              - {label: Nom, name: nom, widget: string}
-              - {label: Poste, name: poste, widget: string}
-              - {label: Email, name: email, widget: string, required: false}
-              - {label: Téléphone, name: telephone, widget: string, required: false}
-  - name: "pratiques"
-    label: "Infos pratiques"
-    files:
-      - label: "Page Infos pratiques"
-        name: "pratiques"
-        file: "data/pratiques.md"
-        fields:
-          - {label: Contenu, name: body, widget: markdown}
+              - { label: "Nom", name: "nom", widget: "string" }
+              - { label: "Poste", name: "poste", widget: "string", required: false }
+              - { label: "Téléphone", name: "telephone", widget: "string", required: false }
+              - { label: "Email", name: "email", widget: "string", required: false }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
 
-publish_mode: editorial_workflow
+  # 2) Créneaux (JSON avec un tableau "items")
+  - name: "creneaux"
+    label: "🗓️ Créneaux d'activité"
+    files:
+      - label: "Planning hebdomadaire"
+        name: "creneaux"
+        file: "data/creneaux.json"
+        format: json
+        fields:
+          - label: "Créneaux"
+            name: "items"
+            widget: list
+            fields:
+              - { label: "Jour", name: "jour", widget: "select", options: ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"] }
+              - { label: "Libellé", name: "libelle", widget: "string" }
+              - { label: "Animateurs", name: "animateurs", widget: "string", required: false }
+              - { label: "Début", name: "debut", widget: "string", required: false }
+              - { label: "Fin", name: "fin", widget: "string", required: false }
+              - { label: "Lieu", name: "lieu", widget: "string", required: false }
+              - { label: "Période", name: "periode", widget: "string", required: false }
+
+  # 3) Document PDF (stocke le chemin du PDF dans un JSON)
+  - name: "documents"
+    label: "📄 Documents"
+    files:
+      - label: "Règlement intérieur"
+        name: "reglement"
+        file: "assets/docs/documents.json"
+        format: json
+        fields:
+          - label: "Règlement (PDF)"
+            name: "reglement_pdf"
+            widget: "file"
+            media_folder: "assets/docs"
+            public_folder: "/assets/docs"
+
+  - name: "vie-du-club"
+    label: "Vie du club"
+    files:
+      - file: "data/club-info.md"
+        label: "Infos Vie du club"
+        name: "infos_vie_du_club"
+        fields:
+          - { label: "Contenu", name: "body", widget: "markdown" }

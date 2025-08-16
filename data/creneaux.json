@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "jour": "Mardi",
+      "libelle": "Randonnée Pédestre (mardi)",
+      "animateurs": "Martine BRIELLES, Patricia LEMOINE, Patrick DAUBERT, Michel AGAESSE",
+      "debut": "13:30",
+      "fin": "17:30",
+      "lieu": "Parking salle Saint-Exupéry",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Jeudi",
+      "libelle": "Marche Nordique (jeudi)",
+      "animateurs": "Pierre BATAIS, Karine COURTET, Fabienne FOUASSIER",
+      "debut": "19:30",
+      "fin": "21:30",
+      "lieu": "Parking salle Saint-Exupéry",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Vendredi",
+      "libelle": "Randonnée Pédestre (vendredi)",
+      "animateurs": "Michel AGAESSE, Gérard ALLANO, Hervé GARNIER",
+      "debut": "13:30",
+      "fin": "17:30",
+      "lieu": "Parking salle Saint-Exupéry",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Vendredi",
+      "libelle": "Marche Nordique (vendredi)",
+      "animateurs": "Pierre BATAIS",
+      "debut": "14:30",
+      "fin": "16:30",
+      "lieu": "Étang de La Sillandais",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Samedi",
+      "libelle": "Marche Rapide Audax (chaque samedi matin)",
+      "animateurs": "Michel AGAESSE",
+      "debut": "08:45",
+      "fin": "12:30",
+      "lieu": "Chavagne",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Samedi",
+      "libelle": "Bungy Pump",
+      "animateurs": "Karine COURTET, Fabienne FOUASSIER, Pierre BATAIS",
+      "debut": "09:30",
+      "fin": "11:00",
+      "lieu": "Parking salle Saint-Exupéry",
+      "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Dimanche",
+      "libelle": "Randonnée Pédestre (dimanche)",
+      "animateurs": "Gérard ALLANO",
+      "debut": "09:00",
+      "fin": "17:30",
+      "lieu": "Parking salle Saint-Exupéry",
+      "periode": "Septembre à Juin"
+    }
+  ]
+}

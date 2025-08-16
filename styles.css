@@ -1,37 +1,167 @@
+/* ==============================
+   Thème & base
+================================*/
 :root{
-  --bg:#ffffff;--text:#1f2937;--muted:#6b7280;--surface:#f3f4f6;--ring:#93c5fd;--primary:#2563eb;--contrast:#fff;
+  --bg: #ffffff;
+  --text: #0f172a;          /* slate-900 */
+  --muted: #64748b;         /* slate-500 */
+  --surface: #f8fafc;       /* slate-50 */
+  --line: #e2e8f0;          /* slate-200 */
+  --primary: #a5bde3;       /* 💙 Bleu clair */
+  --primary-contrast: #ffffff;
+  --ring: #93c5fd;
+  --radius: 14px;
 }
+
+/* @media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b1020;
+    --text: #e6e8ee;
+    --muted: #a8b3c7;
+    --surface: #0f162a;
+    --line: #22314d;
+    --primary: #60a5fa;
+    --primary-contrast: #0b1020;
+    --ring: #1d4ed8;
+  }
+} */
+
 *{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,Segoe UI,Roboto,Arial;color:var(--text);background:var(--bg)}
+html,body{height:100%}
+body{
+  margin:0;
+  font:16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
-.container{max-width:1000px;margin:auto;padding:0 20px}
-.topbar{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);border-bottom:1px solid #e5e7eb}
-.nav{display:flex;justify-content:space-between;align-items:center;min-height:64px}
-.logo{font-weight:800}
-.navlinks{display:flex;gap:16px;align-items:center}
-.btn{background:var(--primary);color:var(--contrast);padding:8px 12px;border-radius:10px;border:0;cursor:pointer}
-.hero{padding:48px 0}
-.lead{color:var(--muted)}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
-.tile{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fff}
-.tile:hover{box-shadow:0 6px 20px rgba(0,0,0,.06);transform:translateY(-1px)}
-.section{padding:56px 0}
+
+/* Layout helpers */
+.container{max-width:1100px;margin-inline:auto;padding-inline:20px}
+.section{padding:72px 0}
 .section--alt{background:var(--surface)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fff}
-.card h3{margin:0 0 6px}
-.card .meta{color:var(--muted);font-size:14px}
-.prose p{margin:0 0 12px}
-.agenda-controls{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-.gcal-wrap{position:relative;width:100%;aspect-ratio: 16 / 10}
-#gcal{position:absolute;inset:0;width:100%;height:100%}
 .muted{color:var(--muted)}
-.footer{padding:24px 0;border-top:1px solid #e5e7eb}
-.footer__grid{display:flex;justify-content:space-between;align-items:center}
-@media (max-width:900px){
-  .tiles{grid-template-columns:1fr 1fr}
-  .cards{grid-template-columns:1fr 1fr}
+
+/* ==============================
+   Topbar / Navigation
+================================*/
+.topbar{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter: saturate(160%) blur(8px);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border-bottom:1px solid var(--line);
 }
-@media (max-width:620px){
-  .tiles,.cards{grid-template-columns:1fr}
+.nav{
+  min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;
 }
+.logo{font-weight:800;display:flex;align-items:center;gap:8px}
+.navlinks{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.navlinks a{padding:8px 10px;border-radius:10px}
+.navlinks a:hover{background:var(--surface)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--primary);color:var(--primary-contrast);font-weight:600;
+}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+
+/* ==============================
+   Hero + tuiles d’entrée
+================================*/
+.hero{padding:64px 0 36px}
+.hero h1{margin:0 0 8px;font-size:clamp(28px,4vw,44px);line-height:1.15}
+.lead{margin:0;color:var(--muted)}
+.tiles{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;
+}
+.tile{
+  padding:18px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg);transition:.2s ease;display:block;
+}
+.tile h3{margin:0 0 6px}
+.tile p{margin:0;color:var(--muted);font-size:14px}
+.tile:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+
+/* ==============================
+   Cartes / Bureau
+================================*/
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{
+  text-align:center;
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;transition:.2s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.card img{
+  width:160px;height:160px;object-fit:cover;border-radius:12px;margin:0 auto 10px;background:var(--surface)
+}
+.card h3{margin:6px 0 2px;font-size:18px}
+.card .meta{color:var(--muted);font-size:14px;margin-bottom:4px}
+
+/* Grille membres dédiée (si utilisée) */
+.members-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ==============================
+   Agenda Google
+================================*/
+.agenda-controls{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.gcal-wrap{position:relative;width:100%;aspect-ratio:16/10;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+#gcal{position:absolute;inset:0;width:100%;height:100%}
+
+/* ==============================
+   Footer
+================================*/
+.footer{padding:28px 0;border-top:1px solid var(--line);background: color-mix(in srgb, var(--bg) 96%, transparent)}
+.footer__grid{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ==============================
+   Responsive
+================================*/
+@media (max-width: 960px){
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .cards,.members-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width: 620px){
+  .tiles,.cards,.members-grid{grid-template-columns:1fr}
+}
+
+.btn-download {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #3b82f6; /* bleu clair */
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-download:hover {
+  background-color: #2563eb; /* bleu un peu plus foncé au survol */
+}
+
+/* Tables créneaux */
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--bg);margin-bottom:18px}
+.table{width:100%;border-collapse:collapse;min-width:720px}
+.table th,.table td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.table thead th{background:var(--surface);text-align:left;font-weight:700}
+.table tbody tr:hover{background:rgba(0,0,0,.02)}
+.creneaux__day{margin:12px 0 8px}
+
+.prose {
+  max-width: 70ch;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: var(--fg, #111);
+}
+
+.prose h1, .prose h2 { margin: 1.6rem 0 .8rem; line-height: 1.25; }
+.prose h2 { border-bottom: 1px solid rgba(0,0,0,.12); padding-bottom: .25rem; }
+.prose h3 { margin: 1.2rem 0 .5rem; }
+.prose p  { margin: .75rem 0; }
+.prose ul { padding-left: 1.25rem; margin: .5rem 0; }
+.prose li { margin: .25rem 0; }
+.prose strong { font-weight: 600; }

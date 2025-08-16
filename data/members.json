@@ -1,28 +1,46 @@
 {
   "items": [
     {
-      "nom": "Prénom Nom",
-      "poste": "Président(e)",
-      "email": "president@uscc.fr",
-      "telephone": "06 00 00 00 00"
+      "nom": "Martine BRIELLES",
+      "poste": "Présidente",
+      "telephone": "06 65 33 96 60",
+      "email": "martine.nicolasbrielles@gmail.com",
+      "photo": "/assets/uploads/martine.jpg"
     },
     {
-      "nom": "Prénom Nom",
+      "nom": "Gérard ALLANO",
+      "poste": "Vice-président",
+      "telephone": "06 59 43 09 59",
+      "email": "gerard.allano35@gmail.com",
+      "photo": "/assets/uploads/gerard.jpg"
+    },
+    {
+      "nom": "Patricia LEMOINE",
       "poste": "Secrétaire",
-      "email": "secretaire@uscc.fr"
+      "telephone": "06 72 76 26 33",
+      "email": "patlem@hotmail.fr",
+      "photo": "/assets/uploads/patricia.jpg"
     },
     {
-      "nom": "Prénom Nom",
-      "poste": "Trésorier(e)",
-      "telephone": "06 00 00 00 01"
+      "nom": "Marie-claude CHOUARD",
+      "poste": "Secrétaire adjointe",
+      "telephone": "06 64 33 39 86",
+      "email": "marie-claude.chouard@orange.fr",
+      "photo": "/assets/uploads/placeholder.png"
     },
     {
-      "nom": "Prénom Nom",
-      "poste": "Animateur Marche Nordique"
+      "nom": "Monique GRIVEAU",
+      "poste": "Trésorière",
+      "telephone": "06 25 06 52 97",
+      "email": "ar-monique@hotmail.fr",
+      "photo": "/assets/uploads/placeholder.png"
     },
     {
-      "nom": "Prénom Nom",
-      "poste": "Animateur Randonnée"
+      "nom": "Catherine AGAESSE",
+      "poste": "Trésorière adjointe",
+      "telephone": "06 24 90 67 59",
+      "email": "catherine.agaesse@yahoo.fr",
+      "photo": "/assets/uploads/catherine.jpg"
     }
   ]
 }

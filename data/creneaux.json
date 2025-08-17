@@ -62,6 +62,10 @@
       "fin": "17:30",
       "lieu": "Parking salle Saint-Exupéry",
       "periode": "Septembre à Juin"
+    },
+    {
+      "jour": "Lundi",
+      "libelle": "test créneau"
     }
   ]
 }

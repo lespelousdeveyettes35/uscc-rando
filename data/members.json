@@ -41,6 +41,10 @@
       "telephone": "06 24 90 67 59",
       "email": "catherine.agaesse@yahoo.fr",
       "photo": "/assets/uploads/catherine.jpg"
+    },
+    {
+      "nom": "Riaud Michel",
+      "poste": "Membre"
     }
   ]
 }

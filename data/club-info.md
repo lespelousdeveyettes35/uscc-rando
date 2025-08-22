@@ -1,1 +1,1 @@
-Pas d'activités pendant les vacances scolaires
+Pas d'activités pendant les vacances scolaire

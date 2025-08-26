@@ -5,132 +5,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>USCC Randonnée – Les Pelous de Veyettes</title>
   <meta name="description" content="Section randonnée de l'USCC : bureau, infos pratiques, calendrier des activités."/>
-  <link rel="stylesheet" href="styles.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script defer src="script.js"></script>
-</head>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
+  <meta name="theme-color" content="#2f5d1e"/>
+  <meta property="og:title" content="USCC Randonnée – Les Pelous de Veyettes"/>
+  <meta property="og:description" content="Marche pédestre, marche nordique, Audax & Bungy Pump – sorties conviviales toute l’année."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
         });
       }
     });
-  }
   </script>
+</head>
 <body>
-  <header class="topbar">
-    <div class="container nav">
-      <a class="logo" href="#">🥾 USCC Randonnée</a>
-      <nav class="navlinks">
-        <a class="btn" href="/admin/">Administration</a>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="topbar" role="banner">
+    <div class="nav">
+      <nav class="navlinks" aria-label="Navigation principale">
+        <a href="#vie-du-club">Vie du club</a>
+        <a href="#vie">Calendrier</a>
+        <a href="#pratiques">Infos pratiques</a>
+        <a href="#bureau">Bureau</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn--primary" href="/admin/">Administration</a>
       </nav>
     </div>
   </header>
 
-<section class="hero container">
-  <h1>Les Pelous de Veyettes</h1>
-  <p class="lead">Marche pédestre, marche nordique, Audax & Bungy Pump – sorties conviviales toute l’année.</p>
-
-  <div class="tiles">
-    <a class="tile" href="#vie">
-      <h3>🌿 Vie du club</h3>
-      <p>Ambiance, temps forts & calendrier</p>
-    </a>
-
-    <a class="tile" href="#pratiques">
-      <h3>🧭 Infos pratiques</h3>
-      <p>Règlement, santé & créneaux d’activité</p>
-    </a>
-
-    <a class="tile" href="#bureau">
-      <h3>👥 Bureau</h3>
-      <p>Membres, postes & contacts</p>
-    </a>
-
-    <a class="tile" href="#contact">
-      <h3>📬 Contact</h3>
-      <p>Adresse postale & e-mail</p>
-    </a>
-  </div>
-</section>
-
-
-<!-- Section Vie du Club -->
-<section id="vie-du-club" class="section container">
-  <h2>🏡 Vie du Club</h2>
-  <div id="vie-du-club-content">
-    <!-- Le contenu de data/vie-du-club.md sera injecté ici par JS -->
-  </div>
-</section>
-
-<!-- Section Agenda -->
-<section id="vie" class="section container">
-  <h2>📅 Calendrier des activités</h2>
-
-  <div class="agenda-controls" role="group" aria-label="Affichage de l’agenda">
-    <button class="btn" data-view="MONTH">Mois</button>
-    <button class="btn" data-view="WEEK">Semaine</button>
-    <button class="btn" data-view="AGENDA">Planning</button>
-    <a id="ical-link" class="btn" target="_blank" rel="noopener" style="display:none">S’abonner (iCal)</a>
-  </div>
-
-  <div class="gcal-wrap">
-    <iframe
-      id="gcal"
-      title="Agenda USCC Randonnée"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://calendar.google.com/calendar/embed?src=lespelousdeveyettes35%40gmail.com&ctz=Europe%2FParis&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0"
-      style="border:0">
-    </iframe>
-  </div>
-</section>
-
-
-  <section id="pratiques" class="section section--alt">
-    <div class="container">
-      <h2>🧭 Informations pratiques</h2>
-      <article id="pratiques-content" class="prose" aria-live="polite">
-        <p>Chargement…</p>
-      </article>
+  <section class="hero hero--image" id="accueil">
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <h1>Les Pelous de Veyettes</h1>
+      <p class="lead">Marche pédestre, marche nordique, Audax & Bungy Pump – sorties conviviales toute l’année.</p>
     </div>
   </section>
 
-  <section id="bureau" class="section container">
-    <h2>👥 Bureau & encadrants</h2>
-    <!-- Cartes dirigeant·e·s / encadrant·e·s -->
-    <div id="members" class="cards" aria-live="polite"></div>
-  </section>
+  <main id="main">
+    <section id="vie-du-club" class="section container">
+      <h2>Vie du club</h2>
+      <div id="vie-du-club-content" class="prose" aria-live="polite">
+        <p class="muted">Chargement…</p>
+      </div>
+    </section>
 
-  <!-- ==================== CONTACT ==================== -->
-<section id="contact" class="section container">
-  <h2>📬 Contact</h2>
-  <div class="prose">
-    <p>
-      📍 <strong>Adresse postale</strong><br>
-      Union Sportive et Culturelle de CHAVAGNE<br>
-      Section RANDONNÉE PEDESTRE<br>
-      "Les Pelous de Veyettes"<br>
-      1, rue du Centre<br>
-      35310 CHAVAGNE
-    </p>
-    <p>
-      📧 <strong>Adresse électronique</strong><br>
-      <a href="mailto:randonnee@uscchavagne.fr">randonnee@uscchavagne.fr</a>
-    </p>
-  </div>
-</section>
+    <section id="vie" class="section container">
+      <h2>Calendrier des activités</h2>
+      <div class="agenda-controls" role="group" aria-label="Affichage de l’agenda">
+        <button class="btn btn--outline btn--sm" data-view="MONTH" aria-pressed="true">Mois</button>
+        <button class="btn btn--outline btn--sm" data-view="WEEK">Semaine</button>
+        <button class="btn btn--outline btn--sm" data-view="AGENDA">Planning</button>
+        <a id="ical-link" class="btn btn--ghost btn--sm" target="_blank" rel="noopener" style="display:none">S’abonner (iCal)</a>
+      </div>
+      <div class="gcal-wrap">
+        <iframe id="gcal" title="Agenda USCC Randonnée" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://calendar.google.com/calendar/embed?src=lespelousdeveyettes35%40gmail.com&ctz=Europe%2FParis&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0"></iframe>
+      </div>
+    </section>
 
-  <footer class="footer">
+    <section id="pratiques" class="section section--alt">
+      <div class="container">
+        <h2>Informations pratiques</h2>
+        <article id="pratiques-content" class="prose" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section id="bureau" class="section container">
+      <h2>Bureau & encadrants</h2>
+      <div id="members" class="cards" aria-live="polite"></div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="contact-card">
+          <div class="contact-item">
+            <h3>Adresse postale</h3>
+            <p>
+              Union Sportive et Culturelle de CHAVAGNE<br>
+              Section RANDONNÉE PÉDESTRE<br>
+              « Les Pelous de Veyettes »<br>
+              1, rue du Centre<br>
+              35310 CHAVAGNE
+            </p>
+          </div>
+          <div class="contact-item">
+            <h3>Adresse électronique</h3>
+            <p><a href="mailto:randonnee@uscchavagne.fr">randonnee@uscchavagne.fr</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
     <div class="container footer__grid">
       <div>
         <strong>USCC Randonnée</strong><br/>
         © <span id="annee"></span> – Tous droits réservés
       </div>
+      <div><a class="btn btn--sm btn--ghost" href="#accueil">Haut de page ↑</a></div>
     </div>
   </footer>
+
+  <script>
+    (function(){
+      const y = document.getElementById('annee'); if (y) y.textContent = new Date().getFullYear();
+      const gcal = document.getElementById('gcal');
+      const buttons = document.querySelectorAll('[data-view]');
+      const ical = document.getElementById('ical-link');
+      const base = 'https://calendar.google.com/calendar/embed?src=lespelousdeveyettes35%40gmail.com&ctz=Europe%2FParis';
+      const setView = (mode) => {
+        if (gcal) gcal.src = `${base}&mode=${mode}&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0`;
+        buttons.forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.view===mode)));
+      };
+      buttons.forEach(btn=>btn.addEventListener('click', ()=> setView(btn.dataset.view)));
+      const icalUrl = 'https://calendar.google.com/calendar/ical/lespelousdeveyettes35%40gmail.com/public/basic.ics';
+      if (ical){ ical.href = icalUrl; ical.style.display='inline-flex'; }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsOrganization",
+    "name": "USCC Randonnée — Les Pelous de Veyettes",
+    "url": "https://uscchavagne.fr/randonnee",
+    "email": "randonnee@uscchavagne.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1, rue du Centre",
+      "addressLocality": "Chavagne",
+      "postalCode": "35310",
+      "addressCountry": "FR"
+    }
+  }
+  </script>
 </body>
 </html>

@@ -9,22 +9,26 @@ This repository contains the source code for the official website of
 
 ## 🚀 Features
 
-- 🏠 Static website built with **HTML, CSS, and JavaScript**
-- 📝 Content editing powered by **Decap CMS** (formerly Netlify CMS)
-- 🔑 Authentication handled by **Netlify Identity**
-- 📅 Google Calendar integration to display the club’s activities
-- 📂 Editable sections (via CMS):
+- Static website built with **HTML, CSS, and JavaScript**
+- Content editing powered by **Decap CMS** (formerly Netlify CMS)
+- Authentication handled by **Netlify Identity**
+- Google Calendar integration to display the club’s activities
+- Editable sections (via CMS):
   - Club life (`Vie du club`)
   - Practical information (`Infos pratiques`)
   - Board members (`Membres du bureau`)
   - Contact information
+- 🔒 **Private backoffice** (for admins only):
+  - Protected with **Netlify Identity roles**
+  - CRUD management of **adherents (members list)** stored in **Netlify Blobs**
+  - No external database required
 
 ---
 
 ## 🛠️ Development
 
 ### Requirements
-- [Node.js](https://nodejs.org/) (for local development with Netlify CLI)
+- [Node.js](https://nodejs.org/)  
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/)
 
 ### Run locally
@@ -34,28 +38,3 @@ npm install -g netlify-cli
 
 # Start local development server
 netlify dev
-This will serve the site at http://localhost:8888 with CMS and authentication enabled.
-```
-
-📂 Project structure
-```graphql
-.
-├── admin/              # Decap CMS entrypoint (index.html + config.yml)
-├── assets/             # Static assets (images, uploads…)
-├── data/               # JSON/Markdown content editable via CMS
-├── index.html          # Homepage
-├── script.js           # Custom frontend scripts
-└── styles.css          # Site styles
-```
-
-🔐 Authentication
-
-Only invited members can log in to the administration (/admin).
-
-Login is managed via Netlify Identity.
-
-Google login is supported and recommended.
-
-📄 License
-
-This project is maintained for the Les Pelous de Veyettes hiking club.

@@ -1,204 +1,121 @@
-// ---- année dans le footer
-document.getElementById('annee').textContent = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', () => {
+  const y = document.getElementById('annee');
+  if (y) y.textContent = new Date().getFullYear();
 
-// ---- helpers fetch
-async function getJSON(path){ const r = await fetch(path); if(!r.ok) throw new Error(path); return r.json(); }
-async function getText(path){ const r = await fetch(path); if(!r.ok) throw new Error(path); return r.text(); }
+  const gcal = document.getElementById('gcal');
+  const buttons = document.querySelectorAll('[data-view]');
+  const ical = document.getElementById('ical-link');
+  const gcalBase = 'https://calendar.google.com/calendar/embed?src=lespelousdeveyettes35%40gmail.com&ctz=Europe%2FParis';
+  const setView = (mode) => {
+    if (!gcal) return;
+    gcal.src = `${gcalBase}&mode=${mode}&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0`;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view===mode)));
+  };
+  buttons.forEach(btn => btn.addEventListener('click', () => setView(btn.dataset.view)));
+  if (ical){ ical.href='https://calendar.google.com/calendar/ical/lespelousdeveyettes35%40gmail.com/public/basic.ics'; ical.style.display='inline-flex'; }
 
-// ---- Rendu BUREAU (members.json peut être {items:[...]} ou un tableau)
-(async function renderMembers(){
-  try{
-    const data = await getJSON('data/members.json');
-    const items = Array.isArray(data) ? data : (data.items || []);
-    const wrap = document.getElementById('members');
+  const getText = async (p)=>{ const r=await fetch(p,{cache:'no-cache'}); if(!r.ok) throw new Error(p); return r.text(); };
+  const getJSON = async (p)=>{ const r=await fetch(p,{cache:'no-cache'}); if(!r.ok) throw new Error(p); return r.json(); };
 
-    const html = items.map(m => {
-      const nom = m.nom || '';
-      const photo = (m.photo || '').trim();
-      const useInitials = !photo || /placeholder\.(png|jpe?g|webp)$/i.test(photo);
-      const src = useInitials ? initialsAvatar(nom) : photo;
-
-      return `
-        <article class="card">
-          <img
-            src="${src}"
-            data-name="${nom.replace(/"/g, '&quot;')}"
-            alt="${nom ? `Portrait de ${nom}` : 'Photo non disponible'}"
-            style="width:100%;max-width:160px;border-radius:8px;margin-bottom:8px;aspect-ratio:1/1;object-fit:cover">
-          <h3>${nom || ''}</h3>
-          <div class="meta">${m.poste || ''}</div>
-          ${m.telephone ? `<div>📞 ${m.telephone}</div>` : ''}
-          ${m.email ? `<div>✉️ <a href="mailto:${m.email}">${m.email}</a></div>` : ''}
-        </article>
-      `;
-    }).join('');
-
-    wrap.innerHTML = html || '<p>Aucun membre renseigné pour le moment.</p>';
-
-    // Fallback si une image "valide" casse au chargement (404, etc.)
-    wrap.querySelectorAll('img[data-name]').forEach(img => {
-      img.addEventListener('error', () => {
-        const name = img.dataset.name || '';
-        img.src = initialsAvatar(name);
-      });
+  const cleanLineBreaks = (root) => {
+    root.querySelectorAll('p, li').forEach(el=>{
+      el.innerHTML = el.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/\s{2,}/g,' ').trim();
     });
-  }catch(e){
-    console.error(e);
+  };
+  const enhanceProse = (el) => {
+    if (!el) return;
+    cleanLineBreaks(el);
+    const firstP = el.querySelector('p');
+    if (firstP && firstP.textContent.trim().length > 60) firstP.classList.add('lead-p');
+    el.querySelectorAll('ul').forEach(ul => ul.classList.add('list-clean'));
+    el.querySelectorAll('hr').forEach(hr => hr.classList.add('rule'));
+    el.querySelectorAll('blockquote').forEach(bq => bq.classList.add('callout'));
+  };
+
+  const vieEl = document.getElementById('vie-du-club-content');
+  if (vieEl) {
+    getText('data/vie-du-club.md')
+      .then(md => { vieEl.innerHTML = marked.parse(md); enhanceProse(vieEl); })
+      .catch(() => { vieEl.innerHTML = '<p class="muted">Contenu à venir.</p>'; });
   }
-})();
 
-// --- helpers avatar initiales ---
-function initialsFromName(name){
-  const initials = String(name).trim().split(/\s+/).map(p => p[0]).slice(-2).join('').toUpperCase();
-  return initials || '??';
-}
-function initialsAvatar(name, size = 160){
-  const initials = initialsFromName(name);
-  const svg = `
-  <svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>
-    <defs>
-      <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0' stop-color='#a5bde3'/>
-        <stop offset='1' stop-color='#7aa1df'/>
-      </linearGradient>
-    </defs>
-    <rect width='100%' height='100%' rx='16' fill='url(#g)'/>
-    <text x='50%' y='58%' text-anchor='middle'
-          font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto'
-          font-weight='800' font-size='56' fill='white'>${initials}</text>
-  </svg>`;
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-}
-
-// ---- Rendu INFOS PRATIQUES (sans pratiques.md)
-(function renderPratiques(){
-  try {
-    const reglementHTML = `
-      <h3>📜 Règlement intérieur</h3>
-      <p><strong>Règlement intérieur de la section Randonnée pédestre, Marche nordique, Audax et Bungy Pump</strong></p>
-      <p>
-        Merci de prendre connaissance du règlement intérieur avant toute inscription ou participation à nos activités.
-      </p>
-      <a href="assets/reglement-interieur.pdf" download class="btn">
-        📄 Télécharger le règlement intérieur (PDF)
-      </a>
-
-      <hr class="divider">
-
-      <h3>🩺 Questionnaire de santé</h3>
-      <p>
-        Pour une réinscription, merci de remplir le questionnaire de santé officiel et de remettre uniquement
-        l’attestation signée au club si toutes les réponses sont "non".
-      </p>
-      <a href="https://www.formulaires.service-public.fr/gf/cerfa_15699.do" target="_blank" rel="noopener" class="btn">
-        🔗 Accéder au questionnaire de santé (Cerfa n°15699*01)
-      </a>
-    `;
-
-    document.getElementById('pratiques-content').innerHTML = reglementHTML;
-  } catch(e) {
-    console.error(e);
-  }
-})();
-
-
-// ---- Rendu CRENEAUX (affiché sous "Infos pratiques")
-(async function renderCreneaux(){
-  try{
-    const data = await getJSON('data/creneaux.json');
-    const items = Array.isArray(data) ? data : (data.items || []);
-    if (!items.length) return;
-
-    // ordre des jours
-    const order = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-    const groups = {};
-    order.forEach(j => groups[j] = []);
-    items.forEach(it => { if(groups[it.jour]) groups[it.jour].push(it); });
-
-    // construire le HTML
-    let html = `
-      <hr/>
-      <h3>🗓️ Créneaux d'activité</h3>
-      <div class="creneaux">
-    `;
-
-    order.forEach(jour => {
-      const rows = groups[jour];
-      if (!rows || !rows.length) return;
-      html += `
-        <h4 class="creneaux__day">${jour}</h4>
-        <div class="table-wrap">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Libellés</th>
-                <th>Animat.</th>
-                <th>Début</th>
-                <th>Fin</th>
-                <th>Lieu</th>
-                <th>Période</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows.map(r => `
-                <tr>
-                  <td>${r.libelle || ""}</td>
-                  <td>${r.animateurs || ""}</td>
-                  <td>${r.debut || ""}</td>
-                  <td>${r.fin || ""}</td>
-                  <td>${r.lieu || ""}</td>
-                  <td>${r.periode || ""}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
+  const praEl = document.getElementById('pratiques-content');
+  const PRACTIQUES_HTML = `
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="icon" aria-hidden="true">📄</div>
+          <h3>Règlement intérieur</h3>
         </div>
-      `;
-    });
+        <p>Règlement intérieur de la section Randonnée pédestre, Marche nordique, Audax et Bungy Pump.</p>
+        <p>Merci de prendre connaissance du règlement avant toute inscription ou participation à nos activités.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="assets/docs/interieur.pdf" target="_blank" rel="noopener">
+            Télécharger le règlement (PDF)
+          </a>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="icon" aria-hidden="true">🩺</div>
+          <h3>Questionnaire de santé</h3>
+        </div>
+        <p>Pour une réinscription, remplissez le questionnaire de santé officiel et remettez uniquement l’attestation signée si toutes les réponses sont « non ».</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="https://www.formulaires.service-public.fr/gf/cerfa_15699.do" target="_blank" rel="noopener">
+            Accéder au questionnaire (Cerfa n°15699*01)
+          </a>
+        </div>
+      </div>
+    </div>`;
+  if (praEl) praEl.innerHTML = PRACTIQUES_HTML;
 
-    html += `</div>`;
+  const membersWrap = document.getElementById('members');
+  if (membersWrap) {
+    getJSON('data/members.json')
+      .then((payload) => {
+        let members = [];
+        if (Array.isArray(payload)) members = payload;
+        else if (payload && Array.isArray(payload.items)) members = payload.items;
 
-    // insérer à la fin de #pratiques-content
-    const cont = document.getElementById('pratiques-content');
-    cont.insertAdjacentHTML('beforeend', html);
-  } catch(e){
-    console.error(e);
+        if (!Array.isArray(members) || members.length === 0) {
+          membersWrap.innerHTML = '<p class="muted">Liste en cours de mise à jour.</p>';
+          return;
+        }
+
+        membersWrap.classList.add('cards');
+        membersWrap.innerHTML = members.map((m) => {
+          const name = m.nom || '';
+          const role = m.poste || '';
+          const telRaw = (m.telephone || '').replace(/\s+/g, '');
+          const tel = m.telephone || '';
+          const email = m.email || '';
+
+          const initials = name.split(/\s+/).filter(Boolean).map(p => p.charAt(0).toUpperCase()).slice(0, 2).join('');
+          const hasRealPhoto = m.photo && !/placeholder\.(png|jpg|jpeg|webp)$/i.test(m.photo);
+          const avatar = hasRealPhoto
+            ? `<div class="avatar"><img src="${m.photo}" alt="${name}"></div>`
+            : `<div class="avatar avatar--fallback" aria-hidden="true">${initials || "?"}</div>`;
+          const badge = role ? `<div class="badge">${role}</div>` : '';
+
+          const chips = `
+            <div class="contact">
+              ${email ? `<a href="mailto:${email}" title="Envoyer un e-mail">${email}</a>` : ''}
+              ${telRaw ? `<a href="tel:${telRaw}" title="Appeler">${tel}</a>` : ''}
+            </div>`;
+
+          return `
+            <article class="member-card">
+              ${avatar}
+              <h3>${name}</h3>
+              ${badge}
+              ${chips}
+            </article>`;
+        }).join('');
+      })
+      .catch((err) => {
+        console.error('[members.json] erreur:', err);
+        membersWrap.innerHTML = '<p class="muted">Impossible de charger les membres.</p>';
+      });
   }
-})();
-
-
-// ---- Google Calendar
-const gcal = document.getElementById('gcal');
-const icalLink = document.getElementById('ical-link');
-
-const GCAL_BASE = "https://calendar.google.com/calendar/embed";
-const CAL_SRC = "lespelousdeveyettes35@gmail.com";  // <-- RAW, NOT encoded
-const CTZ = "Europe/Paris";
-const ICAL_URL = ""; // put your .ics here if you have it
-
-function buildSrc(view="MONTH"){
-  const params = new URLSearchParams({
-    src: CAL_SRC,              // URLSearchParams will encode once (correct)
-    ctz: CTZ,
-    mode: view,
-    showTitle: "0",
-    showNav: "1",
-    showPrint: "0",
-    showTabs: "1",
-    showCalendars: "0",
-    showTz: "0"
-  });
-  return `${GCAL_BASE}?${params.toString()}`;
-}
-
-(async function renderVieDuClub(){
-  try {
-    const content = await fetch('data/vie-du-club.md').then(r => r.text());
-    // convertir le markdown -> html (si tu utilises marked.js ou autre)
-    const html = marked.parse(content);
-    document.getElementById('vie-du-club-content').innerHTML = html;
-  } catch(e) {
-    console.error("Erreur rendu Vie du club:", e);
-  }
-})();
-
+});

@@ -1,0 +1,18 @@
+# Bloque l'accès public au JSON
+[[redirects]]
+  from = "/data/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Autoriser /admin/tools/* à tout utilisateur connecté (pas besoin de rôle)
+[[redirects]]
+  from = "/admin/tools/*"
+  to = "/admin/tools/:splat"
+  status = 200
+  force = true
+  conditions = { Role = ["*"] }
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

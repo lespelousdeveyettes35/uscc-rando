@@ -1,9 +1,8 @@
 export async function handler(event) {
   try {
-    const claims = event.clientContext && event.clientContext.user;
-    const roles = (claims && claims.app_metadata && claims.app_metadata.roles) || [];
-    if (!roles.includes('admin')) {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Non autorisé' }) };
+    const user = event.clientContext && event.clientContext.user;
+    if (!user) {
+      return { statusCode: 401, body: JSON.stringify({ error: 'Non connecté' }) };
     }
 
     if (event.httpMethod !== 'POST') {

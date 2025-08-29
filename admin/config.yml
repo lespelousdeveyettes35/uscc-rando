@@ -70,3 +70,22 @@ collections:
         name: "infos_vie_du_club"
         fields:
           - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "adherents"
+    label: "👤 Adhérents"
+    files:
+      - label: "Liste des adhérents"
+        name: "adherents"
+        file: "data/adherents.json"
+        format: json
+        fields:
+          - label: "Adhérents"
+            name: "items"
+            widget: list
+            fields:
+              - { label: "Nom", name: "nom", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Code", name: "code", widget: "string", hint: "Ex: A1, B2, 2025..." }
+              - { label: "Téléphone", name: "telephone", widget: "string", required: false }
+              - { label: "Notes", name: "notes", widget: "text", required: false }
+

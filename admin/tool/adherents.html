@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Adhérents</title>
+  <link rel="preconnect" href="https://identity.netlify.com" />
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    :root { --bg:#0b1020; --card:#111832; --accent:#4f8cff; --text:#e6ecff; --muted:#9bb0d3; --border:#243057 }
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto}
+    .container{max-width:980px;margin:24px auto;padding:0 16px}
+    header{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px;border-radius:0 0 12px 12px}
+    button{background:var(--accent);color:#fff;border:0;padding:8px 12px;border-radius:10px;cursor:pointer}
+    button.secondary{background:#2a3a70}button.primary{background:#21a87c}
+    .card{background:var(--card);border:1px solid var(--border);padding:16px;border-radius:14px;margin:16px 0}
+    input,textarea{background:#0e1530;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{border-bottom:1px solid var(--border);padding:8px;text-align:left}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Administration — Adhérents</h1>
+    <div>
+      <button id="loginBtn">Se connecter</button>
+      <button id="logoutBtn" class="secondary" style="display:none">Se déconnecter</button>
+      <span id="userInfo" class="muted"></span>
+    </div>
+  </header>
+  <main class="container">
+    <section id="guard" class="card">
+      <p>Accès réservé aux comptes avec le rôle <code>admin</code>.</p>
+    </section>
+    <section id="app" class="card" style="display:none">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end">
+        <label>Filtrer par code<br/><input id="codeFilter" placeholder="A1, B2, 2025..." /></label>
+        <button id="applyFilter">Appliquer</button>
+        <button id="resetFilter" class="secondary">Réinitialiser</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">
+        <button id="exportCsv">Exporter emails (CSV)</button>
+        <button id="mailtoBtn" class="secondary">Ouvrir dans votre client mail</button>
+        <button id="sendEmailBtn" class="primary">Envoyer un email (Function)</button>
+      </div>
+      <table>
+        <thead><tr><th>Nom</th><th>Email</th><th>Code</th></tr></thead>
+        <tbody id="membersBody"></tbody>
+      </table>
+      <p id="count" class="muted"></p>
+      <div class="card">
+        <h3>Message</h3>
+        <label>Objet<br/><input id="subject" placeholder="Objet" /></label>
+        <label>Contenu<br/><textarea id="content" rows="8" placeholder="Bonjour...\n\n"></textarea></label>
+        <label>Expéditeur (optionnel)<br/><input id="fromEmail" type="email" placeholder="association@votredomaine.fr" /></label>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="./adherents.js"></script>
+</body>
+</html>

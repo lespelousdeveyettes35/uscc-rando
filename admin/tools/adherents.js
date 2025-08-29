@@ -29,6 +29,11 @@ function updateAuthUI(user){
 loginBtn.addEventListener('click', ()=> window.netlifyIdentity?.open('login'));
 logoutBtn.addEventListener('click', ()=> window.netlifyIdentity?.logout());
 
+const APIUrl = `${window.location.origin}/.netlify/identity`;
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.init({ APIUrl });
+}
+
 if(window.netlifyIdentity){
   window.netlifyIdentity.on('init', (u)=>{ updateAuthUI(u); if(u) loadMembers(); });
   window.netlifyIdentity.on('login', (u)=>{ updateAuthUI(u); window.netlifyIdentity.close(); loadMembers(); });

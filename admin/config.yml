@@ -71,21 +71,19 @@ collections:
         fields:
           - { label: "Contenu", name: "body", widget: "markdown" }
 
-  - name: "adherents"
-    label: "👤 Adhérents"
+  - name: "outils"
+    label: "Outils"
+    editor:
+      preview: false
     files:
-      - label: "Liste des adhérents"
-        name: "adherents"
-        file: "data/adherents.json"
+      - label: "Outil adhérents (emails)"
+        name: "outil_adherents"
+        file: "data/outil_adherents.json"
         format: json
         fields:
-          - label: "Adhérents"
-            name: "items"
-            widget: list
-            fields:
-              - { label: "Nom", name: "nom", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
-              - { label: "Code", name: "code", widget: "string", hint: "Ex: A1, B2, 2025..." }
-              - { label: "Téléphone", name: "telephone", widget: "string", required: false }
-              - { label: "Notes", name: "notes", widget: "text", required: false }
+          - label: "URL de l’outil"
+            name: "url"
+            widget: "iframe"
+            default: "/admin/tools/adherents.html"
+
 
